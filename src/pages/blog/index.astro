@@ -3,12 +3,45 @@ import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
-import { getCollection } from 'astro:content';
+import { getContentManager } from '../../services/content-manager';
 import FormattedDate from '../../components/FormattedDate.astro';
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+// Tentar buscar posts do Strapi, fallback para conteúdo estático se falhar
+let posts = [];
+let categories = [];
+let error = null;
+let useStrapi = false;
+
+try {
+  const contentManager = getContentManager();
+
+  // Verificar conexão com Strapi
+  const isConnected = await contentManager.healthCheck();
+
+  if (isConnected) {
+    // Buscar posts do Strapi
+    const result = await contentManager.getPostsForHomePage(1, 10);
+    posts = result.posts.map(post => contentManager.formatPostForDisplay(post));
+    categories = await contentManager.getCategories();
+    useStrapi = true;
+  } else {
+    throw new Error('Strapi não conectado');
+  }
+} catch (err) {
+  console.error('Erro ao conectar com Strapi:', err);
+  error = err.message;
+  useStrapi = false;
+
+  // Fallback: usar conteúdo estático se disponível
+  try {
+    const { getCollection } = await import('astro:content');
+    const staticPosts = await getCollection('blog');
+    posts = staticPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  } catch (fallbackError) {
+    console.error('Erro no fallback para conteúdo estático:', fallbackError);
+    posts = [];
+  }
+}
 ---
 
 <!doctype html>
@@ -91,17 +124,33 @@ const posts = (await getCollection('blog')).sort(
 			<section>
 				<ul>
 					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									<img width={720} height={360} src={post.data.heroImage} alt="" />
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
+						useStrapi ? (
+							// Renderizar posts do Strapi
+							(posts as any[]).map((post) => (
+								<li>
+									<a href={`/blog/${post.id}/`}>
+										<img width={720} height={360} src={post.heroImageUrl} alt="" />
+										<h4 class="title">{post.title}</h4>
+										<p class="date">
+											<FormattedDate date={post.publishedDate} />
+										</p>
+									</a>
+								</li>
+							))
+						) : (
+							// Renderizar posts estáticos
+							(posts as any[]).map((post) => (
+								<li>
+									<a href={`/blog/${post.id}/`}>
+										<img width={720} height={360} src={post.data.heroImage} alt="" />
+										<h4 class="title">{post.data.title}</h4>
+										<p class="date">
+											<FormattedDate date={post.data.pubDate} />
+										</p>
+									</a>
+								</li>
+							))
+						)
 					}
 				</ul>
 			</section>
