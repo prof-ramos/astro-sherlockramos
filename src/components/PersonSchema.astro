@@ -1,0 +1,16 @@
+---
+import { PROFILE } from '../consts';
+
+const schema = {
+	"@context": "https://schema.org",
+	"@type": "Person",
+	"name": PROFILE.name,
+	"jobTitle": PROFILE.title,
+	"description": PROFILE.description,
+	"image": new URL(PROFILE.avatar, Astro.site).toString(),
+	"sameAs": PROFILE.social.map(s => s.url),
+	"url": Astro.site?.toString(),
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

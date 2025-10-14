@@ -1,64 +1,47 @@
-# Astro Starter Kit: Blog
+# Blog Sherlock Ramos
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/templates/tree/main/astro-blog-starter-template)
+Blog pessoal desenvolvido com Astro e implantado no Cloudflare Workers como um [site estático](https://developers.cloudflare.com/workers/static-assets/).
 
-![Astro Template Preview](https://github.com/withastro/astro/assets/2244813/ff10799f-a816-4703-b967-c78997e8323d)
+## Recursos
 
-<!-- dash-content-start -->
+- ✅ Design minimalista e personalizável
+- ✅ Performance 100/100 no Lighthouse
+- ✅ SEO otimizado com URLs canônicas e dados OpenGraph
+- ✅ Suporte a Sitemap
+- ✅ Feed RSS
+- ✅ Suporte a Markdown & MDX
+- ✅ Logging de observabilidade integrado
 
-Create a blog with Astro and deploy it on Cloudflare Workers as a [static website](https://developers.cloudflare.com/workers/static-assets/).
+## 🚀 Estrutura do Projeto
 
-Features:
+O Astro busca arquivos `.astro` ou `.md` no diretório `src/pages/`. Cada página é exposta como uma rota baseada no nome do arquivo.
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and OpenGraph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
-- ✅ Built-in Observability logging
+O diretório `src/components/` contém todos os componentes Astro/React/Vue/Svelte/Preact do projeto.
 
-<!-- dash-content-end -->
+O diretório `src/content/` contém "coleções" de documentos Markdown e MDX relacionados. Use `getCollection()` para recuperar posts de `src/content/blog/` e validar o frontmatter usando um schema opcional. Veja a [documentação de Content Collections do Astro](https://docs.astro.build/pt-br/guides/content-collections/) para saber mais.
 
-## Getting Started
+Arquivos estáticos, como imagens, podem ser colocados no diretório `public/`.
 
-Outside of this repo, you can start a new project with this template using [C3](https://developers.cloudflare.com/pages/get-started/c3/) (the `create-cloudflare` CLI):
+## 🧞 Comandos
 
-```bash
-npm create cloudflare@latest -- --template=cloudflare/templates/astro-blog-starter-template
-```
+Todos os comandos são executados a partir da raiz do projeto, em um terminal:
 
-A live public deployment of this template is available at [https://astro-blog-starter-template.templates.workers.dev](https://astro-blog-starter-template.templates.workers.dev)
+| Comando                           | Ação                                                      |
+| :-------------------------------- | :-------------------------------------------------------- |
+| `npm install`                     | Instala as dependências                                   |
+| `npm run dev`                     | Inicia servidor de desenvolvimento em `localhost:4321`    |
+| `npm run build`                   | Compila o site de produção para `./dist/`                 |
+| `npm run preview`                 | Visualiza a build localmente antes de fazer deploy        |
+| `npm run check`                   | Executa verificação de tipos e validação                  |
+| `npm run astro ...`               | Executa comandos CLI como `astro add`, `astro check`      |
+| `npm run astro -- --help`         | Obtém ajuda usando a CLI do Astro                         |
+| `npm run deploy`                  | Faz deploy do site de produção para Cloudflare            |
+| `npx wrangler tail`               | Visualiza logs em tempo real dos Workers                  |
 
-## 🚀 Project Structure
+## 📚 Quer aprender mais?
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Confira a [documentação do Astro](https://docs.astro.build) ou entre no [servidor Discord](https://astro.build/chat).
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## 🙏 Créditos
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                           | Action                                           |
-| :-------------------------------- | :----------------------------------------------- |
-| `npm install`                     | Installs dependencies                            |
-| `npm run dev`                     | Starts local dev server at `localhost:4321`      |
-| `npm run build`                   | Build your production site to `./dist/`          |
-| `npm run preview`                 | Preview your build locally, before deploying     |
-| `npm run astro ...`               | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help`         | Get help using the Astro CLI                     |
-| `npm run build && npm run deploy` | Deploy your production site to Cloudflare        |
-| `npm wrangler tail`               | View real-time logs for all Workers              |
-
-## 👀 Want to learn more?
-
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-
-## Credit
-
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+Este tema é baseado no excelente [Bear Blog](https://github.com/HermanMartinus/bearblog/).

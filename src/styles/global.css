@@ -15,6 +15,43 @@
   --box-shadow:
     0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
     0 16px 32px rgba(var(--gray), 33%);
+
+  /* Sherlock-inspired color scheme (Light Mode) */
+  --theme: #fafafa;
+  --entry: #ffffff;
+  --bg-primary: #fafafa;
+  --bg-secondary: #ffffff;
+  --bg-card: transparent;
+  --text-primary: #2c2c2c;
+  --text-secondary: #4a4a4a;
+  --text-muted: #6b6b6b;
+  --accent-custom: #6b4423;  /* Marrom terra (tema Sherlock) */
+  --accent-hover: #8b5a3c;   /* Tom de couro */
+  --accent-tertiary: #a67c52; /* Bronze vintage */
+  --border-color: #e0e0e0;
+  --border-hover: #c4915b;
+}
+
+/* Dark Navy Blue UX/UI Theme */
+.dark {
+  --theme: #0f172a;           /* Dark navy blue (Tailwind slate-900) */
+  --entry: #1e293b;           /* Navy slate (Tailwind slate-800) */
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-card: transparent;
+  --text-primary: #f1f5f9;    /* Light slate text */
+  --text-secondary: #cbd5e1;  /* Medium slate text */
+  --text-muted: #94a3b8;      /* Muted slate */
+  --accent-custom: #c4915b;   /* Dourado envelhecido */
+  --accent-hover: #d4a574;    /* Dourado claro */
+  --accent-tertiary: #a67c52; /* Bronze vintage */
+  --border-color: #334155;    /* Dark slate border */
+  --border-hover: #475569;    /* Lighter slate border */
+}
+
+/* Smooth theme transition */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 @font-face {
   font-family: "Atkinson";

@@ -1,0 +1,167 @@
+---
+import Icon from './Icon.astro';
+import type { ProfileConfig } from '../consts';
+
+interface Props {
+	profile: ProfileConfig;
+}
+
+const { profile } = Astro.props;
+---
+
+<section aria-labelledby="profile-heading" class="profile-card">
+	<h1 id="profile-heading" class="sr-only">Perfil de {profile.name}</h1>
+
+	<div class="profile-header">
+		<div class="avatar-wrapper">
+			<img
+				src={profile.avatar}
+				alt={profile.name}
+				class="avatar"
+				width="120"
+				height="120"
+				loading="eager"
+				decoding="async"
+			/>
+		</div>
+		<h2 class="profile-name">{profile.name}</h2>
+		{profile.title && <p class="profile-title">{profile.title}</p>}
+		{profile.subtitle && <p class="profile-subtitle">{profile.subtitle}</p>}
+	</div>
+
+	{profile.social && profile.social.length > 0 && (
+		<div class="social-links">
+			{profile.social.map((link) => (
+				<a href={link.url} class="social-link" title={link.name} target="_blank" rel="noopener noreferrer">
+					<Icon name={link.icon} size={20} />
+				</a>
+			))}
+		</div>
+	)}
+
+	<div class="profile-actions">
+		<a href="/blog" class="btn btn-primary">
+			Posts
+		</a>
+	</div>
+</section>
+
+<style>
+	.profile-card {
+		background: transparent;
+		padding: 2rem 1rem;
+		text-align: center;
+		max-width: 600px;
+		margin: 0 auto;
+	}
+
+	.profile-header {
+		margin-bottom: 1.5rem;
+	}
+
+	.avatar-wrapper {
+		margin-bottom: 1.5rem;
+		display: inline-block;
+	}
+
+	.avatar {
+		width: 120px;
+		height: 120px;
+		border-radius: 50%;
+		object-fit: cover;
+		border: none;
+	}
+
+	.profile-name {
+		font-size: 2.5rem;
+		font-weight: 700;
+		margin: 0 0 0.5rem 0;
+		color: var(--text-primary);
+		line-height: 1.2;
+	}
+
+	.profile-title {
+		font-size: 1rem;
+		font-weight: 400;
+		color: var(--text-secondary);
+		margin: 0 0 1.5rem 0;
+	}
+
+	.profile-subtitle {
+		font-size: 0.9rem;
+		color: var(--text-muted);
+		margin: 0 0 1.5rem 0;
+	}
+
+	.social-links {
+		display: flex;
+		justify-content: center;
+		gap: 0.75rem;
+		margin-bottom: 1.5rem;
+		flex-wrap: wrap;
+	}
+
+	.social-link {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 40px;
+		height: 40px;
+		background: transparent;
+		border: none;
+		border-radius: 6px;
+		color: var(--accent-custom);
+		transition: all 0.3s ease;
+		text-decoration: none;
+	}
+
+	.social-link:hover {
+		color: var(--accent-hover);
+		transform: scale(1.1);
+	}
+
+	.profile-actions {
+		display: flex;
+		justify-content: center;
+		gap: 1rem;
+	}
+
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.625rem 1.5rem;
+		text-decoration: none;
+		border-radius: 6px;
+		font-weight: 500;
+		font-size: 0.95rem;
+		transition: all 0.3s ease;
+		border: none;
+		cursor: pointer;
+	}
+
+	.btn-primary {
+		background: var(--accent-custom);
+		color: #ffffff;
+	}
+
+	.btn-primary:hover {
+		background: var(--accent-hover);
+		transform: translateY(-2px);
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	}
+
+	@media (max-width: 720px) {
+		.profile-name {
+			font-size: 2rem;
+		}
+
+		.profile-title {
+			font-size: 0.95rem;
+		}
+
+		.profile-subtitle {
+			font-size: 0.85rem;
+		}
+	}
+</style>
